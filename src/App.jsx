@@ -8,12 +8,12 @@ import Login from "./Login";
 import Register from "./Register";
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Login/>} />
+        <Route path="home" element={<Home />} />
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
       </Routes>

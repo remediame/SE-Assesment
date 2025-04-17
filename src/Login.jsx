@@ -32,7 +32,7 @@ const Login = () => {
       setToastMessage("Login successful!");
       setIsError(false);
       sessionStorage.setItem("user_id", data.user.id);
-      setTimeout(() => navigate("/"), 2000);
+      setTimeout(() => navigate("/home"), 1000);
     } else {
       setToastMessage("No user data returned from Supabase");
       setIsError(true);

@@ -8,7 +8,7 @@ const NavBar = () => {
       <nav className="navbar navbar-expand-lg navbar-light bg-primary-subtle rounded">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/">
-            <b>Ohiremen</b>
+            <b>tifo site</b>
           </Link>
           <button
             className="navbar-toggler"

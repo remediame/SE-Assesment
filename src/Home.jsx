@@ -2,6 +2,7 @@ import Navbar from "./NavBar";
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Link, useNavigate } from "react-router";
+import DeletePrompt from "./DeletePrompt";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -17,6 +18,8 @@ const Home = () => {
   const [filterTag, setFilterTag] = useState("");
   const [queryHistory, setQueryHistory] = useState([]);
   const [groupedHistory, setGroupedHistory] = useState({});
+  const [showToast, setShowToast] = useState(false);
+  const [queryToDelete, setQueryToDelete] = useState(null);
 
   const navigate = useNavigate();
 
@@ -54,7 +57,6 @@ const Home = () => {
 
     const formattedSearches = data.map((s) => {
       const date = new Date(s.created_at);
-      console.log(s.created_at);
       return {
         query: s.query,
         date: date.toLocaleDateString(),
@@ -70,6 +72,23 @@ const Home = () => {
     }, {});
 
     setGroupedHistory(grouped);
+  };
+
+  const handleDeleteConfirmed = async () => {
+    if (!queryToDelete) return;
+
+    const { error } = await supabase
+      .from("MediaSurfv1")
+      .delete()
+      .match({ user_id: userId, query: queryToDelete });
+
+    if (error) {
+      console.error("Error deleting query:", error);
+    }
+
+    setQueryToDelete(null);
+    setShowToast(false);
+    fetchQueryHistory();
   };
 
   const handleLogout = async () => {
@@ -184,14 +203,18 @@ const Home = () => {
                             <div className="d-block">
                               <Link to="">
                                 <button className="btn btn-secondary me-2">
-                                  {item.creator}
+                                  Full Image
                                 </button>
                               </Link>
-                              <Link to={item.foreign_landing_url}>
+                              <a
+                                href={item.foreign_landing_url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
                                 <button className="btn btn-outline-primary">
                                   External Link
                                 </button>
-                              </Link>
+                              </a>
                             </div>
                           </div>
                         </div>
@@ -251,9 +274,23 @@ const Home = () => {
                   <p className="fw-bold">{day}</p>
                   <ul className="list-unstyled mb-3">
                     {entries.map((e, idx) => (
-                      <li className="text-purple" key={idx}>
-                        <small className="text-muted me-2">{e.time}</small> •{" "}
-                        {e.query}
+                      <li
+                        className="text-purple d-flex justify-content-between align-items-center"
+                        key={idx}
+                      >
+                        <div>
+                          <small className="text-muted me-2">{e.time}</small> •{" "}
+                          {e.query}
+                        </div>
+                        <button
+                          className="btn btn-sm btn-outline-danger"
+                          onClick={() => {
+                            setQueryToDelete(e.query);
+                            setShowToast(true);
+                          }}
+                        >
+                          <i className="bi bi-trash"></i>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -263,6 +300,15 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <DeletePrompt
+        show={showToast}
+        message={queryToDelete}
+        onConfirm={handleDeleteConfirmed}
+        onCancel={() => {
+          setShowToast(false);
+          setQueryToDelete(null);
+        }}
+      />
     </div>
   );
 };

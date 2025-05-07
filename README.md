@@ -1,12 +1,68 @@
-# React + Vite
+# Ohiremen
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ohiremen is a React-based web application that allows authenticated users to search for openly licensed images and audio using the Openverse API. It features secure authentication, persistent search history (stored in Supabase), a responsive UI built with Bootstrap, and containerization via Docker for easy deployment.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 Features
 
-## Expanding the ESLint configuration
+- 🔐 **User Authentication** using Supabase
+- 🔍 **Media Search** via Openverse API (images and audio)
+- 🕓 **Search History** grouped by date with ability to delete individual entries
+- ⚙️ **Responsive UI** with React and Bootstrap
+- 🐳 **Dockerized** with future Docker Compose support
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 🧰 Tech Stack
+
+- **Frontend**: React, React Router, Bootstrap
+- **Backend/Database**: Supabase (auth + storage)
+- **API**: [Openverse API](https://api.openverse.org)
+- **Authentication**: Supabase Auth
+- **State Management**: React Hooks
+- **Containerization**: Docker, Docker Compose
+- **Testing**: Vitest, React Testing Library
+
+---
+
+## 🛠️ Installation & Development
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v16 or above)
+- [Docker](https://www.docker.com/) (optional for containerized build)
+- [Supabase Project](https://supabase.com/) (create a project and get `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`)
+
+---
+
+### 🔧 Local Development (Without Docker)
+
+1. **Clone the repository:**
+
+   ```bash
+   git clone https://github.com/yourusername/ohiremen.git
+   cd mediasurf
+   ```
+
+2. **Install dependencies:**
+
+```
+npm install
+```
+
+3. **Create a .env file in the root directory:**
+
+```
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+3. **Run the app:**
+
+```
+npm run dev
+
+```
+
+The app will be available at http://localhost:5173.

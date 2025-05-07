@@ -30,9 +30,6 @@ const Register = () => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
-      //   options: {
-      //     emailRedirectTo: "https://mediasurfv1.vercel.app",
-      //   },
     });
 
     if (error) {

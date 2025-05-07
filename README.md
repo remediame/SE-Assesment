@@ -41,8 +41,7 @@ Ohiremen is a React-based web application that allows authenticated users to sea
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/ohiremen.git
-   cd mediasurf
+   git clone https://github.com/remediame/SE-Assesment.git
    ```
 
 2. **Install dependencies:**
@@ -58,7 +57,7 @@ VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-3. **Run the app:**
+4. **Run the app:**
 
 ```
 npm run dev

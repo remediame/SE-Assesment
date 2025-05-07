@@ -46,7 +46,7 @@ const Home = () => {
   const fetchQueryHistory = async () => {
     if (!userId) return;
     const { data, error } = await supabase
-      .from("MediaSurfv1")
+      .from("ohiremen")
       .select("query, created_at")
       .eq("user_id", userId);
 
@@ -78,7 +78,7 @@ const Home = () => {
     if (!queryToDelete) return;
 
     const { error } = await supabase
-      .from("MediaSurfv1")
+      .from("ohiremen")
       .delete()
       .match({ user_id: userId, query: queryToDelete });
 
@@ -111,7 +111,7 @@ const Home = () => {
     setLoading(false);
 
     const { error } = await supabase
-      .from("MediaSurfv1")
+      .from("ohiremen")
       .upsert([{ user_id: userId, query }]);
 
     if (!error) {

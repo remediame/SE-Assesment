@@ -30,6 +30,9 @@ const Register = () => {
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: "http://localhost:5173",
+      },
     });
 
     if (error) {
@@ -80,7 +83,10 @@ const Register = () => {
               Ohiremen
             </h4>
             <div className="d-flex justify-content-center my-4">
-              <form>
+              <form onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSignUp();
+                }}>
                 <h4 className="text-center">Register</h4>
                 <div className="mb-3">
                   <input
